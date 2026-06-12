@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noleggio Gommone Ponza | Con Skipper Certificato</title>
+  <meta name="description" content="Noleggia un gommone con skipper certificato a Ponza. Esplora calette nascoste, giornate indimenticabili fino a 8 persone. Prenota subito via WhatsApp." />
+  <meta name="keywords" content="noleggio gommone ponza, gommone con skipper, escursioni ponza, barca ponza" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SEZIONE 1 — HERO / LANDING             -->
+  <!-- ═══════════════════════════════════════ -->
+  <section id="landing" aria-label="Landing page">
+
+    <!-- Video sfondo con fallback immagine -->
+    <video id="bg-video" autoplay muted loop playsinline poster="bg.jpg" aria-hidden="true">
+      <source src="bg.mp4" type="video/mp4" />
+    </video>
+
+    <!-- Overlay gradiente -->
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <!-- Contenuto hero -->
+    <div class="hero-content">
+
+      <!-- Badge superiore -->
+      <div class="hero-badge" id="hero-badge">
+        <span class="badge-dot"></span>
+        Disponibile per l'estate 2026
+      </div>
+
+      <h1 class="hero-title">
+        Esplora Ponza<br />
+        <span class="hero-title-accent">a bordo del tuo gommone</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Noleggio con skipper certificato · Calette nascoste · Fino a 8 persone
+      </p>
+
+      <!-- Stats rapide -->
+      <div class="hero-stats" id="hero-stats">
+        <div class="hero-stat">
+          <span class="stat-value">350€</span>
+          <span class="stat-label">/ giornata</span>
+        </div>
+        <div class="hero-stat-divider" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <span class="stat-value">8</span>
+          <span class="stat-label">persone max</span>
+        </div>
+        <div class="hero-stat-divider" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <span class="stat-value">09–18</span>
+          <span class="stat-label">orario</span>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btn-prenota" onclick="scrollToCalendar()">
+        <span>Vedi disponibilità</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator" aria-hidden="true">
+      <div class="scroll-line"></div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SEZIONE 2 — CALENDARIO                 -->
+  <!-- ═══════════════════════════════════════ -->
+  <section id="calendar" aria-label="Calendario disponibilità">
+
+    <!-- Sfondo immagine blurred -->
+    <div class="calendar-bg" aria-hidden="true"></div>
+    <div class="calendar-overlay" aria-hidden="true"></div>
+
+    <div class="calendar-container">
+
+      <!-- Header sezione -->
+      <div class="section-header">
+        <span class="section-tag">Disponibilità</span>
+        <h2 class="section-title">Scegli la tua giornata</h2>
+        <p class="section-subtitle">Seleziona una data disponibile per visualizzare i dettagli e contattare lo skipper</p>
+      </div>
+
+      <!-- Navigazione mese -->
+      <div class="cal-nav" role="navigation" aria-label="Navigazione mese">
+        <button class="cal-nav-btn" id="btn-prev-month" onclick="prevMonth()" aria-label="Mese precedente">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <span class="cal-month-label" id="cal-month-label" aria-live="polite"></span>
+        <button class="cal-nav-btn" id="btn-next-month" onclick="nextMonth()" aria-label="Mese successivo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+
+      <!-- Griglia giorni della settimana -->
+      <div class="cal-weekdays" role="row" aria-label="Giorni della settimana">
+        <span>Lun</span><span>Mar</span><span>Mer</span><span>Gio</span>
+        <span>Ven</span><span>Sab</span><span>Dom</span>
+      </div>
+
+      <!-- Griglia giorni del mese -->
+      <div class="cal-grid" id="cal-grid" role="grid" aria-label="Calendario"></div>
+
+      <!-- Legenda -->
+      <div class="cal-legend" aria-label="Legenda colori">
+        <div class="legend-item">
+          <span class="legend-dot free" aria-hidden="true"></span>
+          <span>Disponibile</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot pending" aria-hidden="true"></span>
+          <span>Prenotazione in corso</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot booked" aria-hidden="true"></span>
+          <span>Occupato</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot past" aria-hidden="true"></span>
+          <span>Data passata</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- MODAL — SCHEDA SKIPPER                 -->
+  <!-- ═══════════════════════════════════════ -->
+  <div id="skipper-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-skipper-name" aria-hidden="true">
+    <div class="modal-card" id="modal-card">
+
+      <!-- Bottone chiudi -->
+      <button class="modal-close" id="modal-close-btn" onclick="closeModal()" aria-label="Chiudi">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <!-- Banner pending (giallo, visibile solo se data pending) -->
+      <div class="pending-banner" id="pending-banner" role="alert" aria-live="assertive" style="display:none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        <span>Prenotazione in corso! Contatta subito lo skipper per non perdere la giornata.</span>
+      </div>
+
+      <!-- Foto + info skipper -->
+      <div class="skipper-header">
+        <div class="skipper-avatar-wrap">
+          <img src="skipper.jpg" alt="Foto skipper Marco Esposito" class="skipper-avatar" id="skipper-avatar" />
+          <span class="skipper-online-badge" aria-label="Online"></span>
+        </div>
+        <div class="skipper-info">
+          <h3 class="skipper-name" id="modal-skipper-name"></h3>
+          <p class="skipper-role" id="modal-skipper-role"></p>
+          <div class="skipper-badge-row">
+            <span class="skipper-cert-badge">⚓ Patente nautica</span>
+            <span class="skipper-cert-badge">🏝️ Ponza expert</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data selezionata -->
+      <div class="selected-date-row">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        <span id="modal-selected-date" class="selected-date-label"></span>
+      </div>
+
+      <!-- Dettagli noleggio -->
+      <div class="details-grid">
+        <div class="detail-card">
+          <span class="detail-icon">👥</span>
+          <span class="detail-label">Capienza</span>
+          <span class="detail-value" id="modal-capienza"></span>
+        </div>
+        <div class="detail-card">
+          <span class="detail-icon">💰</span>
+          <span class="detail-label">Prezzo</span>
+          <span class="detail-value" id="modal-prezzo"></span>
+        </div>
+        <div class="detail-card">
+          <span class="detail-icon">🕐</span>
+          <span class="detail-label">Orario</span>
+          <span class="detail-value" id="modal-orario"></span>
+        </div>
+      </div>
+
+      <!-- CTA WhatsApp -->
+      <a class="btn-whatsapp" id="modal-wa-link" href="#" target="_blank" rel="noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        <span>Contatta lo skipper su WhatsApp</span>
+      </a>
+
+      <p class="modal-note">Lo skipper risponde solitamente entro pochi minuti · Nessun anticipo richiesto</p>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
