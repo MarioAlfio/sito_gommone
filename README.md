@@ -3,7 +3,7 @@
 Sito web statico per il noleggio di un gommone con skipper certificato a Ponza.  
 Nessun backend, nessun database: la disponibilità è gestita tramite **Google Sheets** (CSV pubblico).
 
-🌐 **Live demo:** [inserisci-url.github.io/gommone-booking](https://inserisci-url.github.io/gommone-booking)
+🌐 **Live demo:** (https://marioalfio.github.io/sito_gommone/)
 
 ---
 
